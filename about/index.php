@@ -12,7 +12,7 @@
       <ul>
         <li><a href="../">Home</a></li>
         <li><a href="../now_showing">Now Showing</a></li>
-        <li><a href="booking.php">View Cart</a></li>
+        <li><a href="../now_showing/booking.php">View Cart</a></li>
         <li><a class="active" href="">About</a></li>
       </ul>
     </nav>
