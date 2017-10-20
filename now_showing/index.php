@@ -49,7 +49,7 @@
                 <p>Thursday 6:00pm</p>
                 <p>Friday 6:00pm</p>
                 <p>Saturday 12:00pm</p>
-                <p>Saturday 12:00pm</p>
+                <p>Sunday 12:00pm</p>
             </div>
             <div class="column">
                 <!-- Art/Foreign Movie-->
@@ -62,7 +62,7 @@
                 <p>N/A</p>
                 <p>N/A</p>
                 <p>Saturday 3:00pm</p>
-                <p>Saturday 3:00pm</p>
+                <p>Sunday 3:00pm</p>
             </div>
             <div class="column">
                 <!-- Romantic Comedy Movie -->
@@ -75,7 +75,7 @@
                 <p>Thursday 1:00pm</p>
                 <p>Friday 1:00pm</p>
                 <p>Saturday 6:00pm</p>
-                <p>Saturday 6:00pm</p>
+                <p>Sunday 6:00pm</p>
             </div>
         </div>
       </div>
@@ -83,30 +83,181 @@
         <h2>Book Now:</h2>
         <br>
         <form method="post" action="booking.php">
-          <label>Movie</label><select name="movie">
+          <label>Movie</label><select id="movieSelect" onchange="showSessions()">
             <option value="">Please select...</option>
             <option value="CH">The Emoji Movie</option>
             <option value="AF">The Square</option>
             <option value="RC">The Big Sick</option>
             <option value="AC">Baby Driver</option>
           </select>
-          <p><label>Session</label><select name="session">
-                <option value="">Please select...</option>
-                <option value="MON-1">Monday - Tuesday: 1pm</option>
-                <option value="MON-6">Monday - Tuesday: 6pm</option>
-                <option value="MON-9">Monday - Tuesday: 9pm</option>
-                <option value="WED-1">Wednesday - Friday: 1pm</option>
-                <option value="WED-6">Wednesday - Friday: 6pm</option>
-                <option value="WED-9">Wednesday - Friday: 9pm</option>
-                <option value="SAT-12">Saturday - Sunday: 12pm</option>
-                <option value="SAT-3">Saturday - Sunday: 3pm</option>
-                <option value="SAT-6">Saturday - Sunday: 6pm</option>
-                <option value="SAT-9">Saturday - Sunday: 9pm</option>
+            <input type="hidden" id="movieData" name="movie" value=""/>
+            <script>
+                function showSessions() {
+                    var select = document.getElementById("sessionSelect");
+                    var movie = document.getElementById("movieSelect");
+
+                    document.getElementById("movieData").value = movie.value;
+
+                    select.style.display = "block";
+
+                    var length = select.options.length;
+
+                    for (i = 0; i < length; i++) {
+                        select.options.remove(i);
+                    }
+
+                    time = document.createElement("option");
+                    time.text = "Please select...";
+                    time.value = "";
+                    select.options.add(time);
+
+                    var time;
+                    switch (movie.value) {
+                        case "CH":
+                            time = document.createElement("option");
+                            time.text = "Monday - 1pm";
+                            time.value = "MON-1";
+                            select.options.add(time);
+
+                            time = document.createElement("option");
+                            time.text = "Tuesday - 1pm";
+                            time.value = "TUES-1";
+                            select.options.add(time);
+
+                            time = document.createElement("option");
+                            time.text = "Wednesday - 6pm";
+                            time.value = "WED-6";
+                            select.options.add(time);
+
+                            time = document.createElement("option");
+                            time.text = "Thursday - 6pm";
+                            time.value = "THUR-6";
+                            select.options.add(time);
+
+                            time = document.createElement("option");
+                            time.text = "Friday - 6pm";
+                            time.value = "FRI-6";
+                            select.options.add(time);
+
+                            time = document.createElement("option");
+                            time.text = "Saturday - 12pm";
+                            time.value = "SAT-12";
+                            select.options.add(time);
+
+                            time = document.createElement("option");
+                            time.text = "Sunday - 12pm";
+                            time.value = "SUN-12";
+                            select.options.add(time);
+
+                            break;
+                        case "AF":
+                            time = document.createElement("option");
+                            time.text = "Monday - 6pm";
+                            time.value = "MON-6";
+                            select.options.add(time);
+
+                            time = document.createElement("option");
+                            time.text = "Tuesday - 6pm";
+                            time.value = "TUES-6";
+                            select.options.add(time);
+
+                            time = document.createElement("option");
+                            time.text = "Saturday - 3pm";
+                            time.value = "SAT-3";
+                            select.options.add(time);
+
+                            time = document.createElement("option");
+                            time.text = "Sunday - 3pm";
+                            time.value = "SUN-3";
+                            select.options.add(time);
+                            break;
+                        case "AC":
+                            time = document.createElement("option");
+                            time.text = "Wednesday - 9pm";
+                            time.value = "WED-9";
+                            select.options.add(time);
+
+                            time = document.createElement("option");
+                            time.text = "Thursday - 9pm";
+                            time.value = "THUR-9";
+                            select.options.add(time);
+
+                            time = document.createElement("option");
+                            time.text = "Friday - 9pm";
+                            time.value = "FRI-9";
+                            select.options.add(time);
+
+                            time = document.createElement("option");
+                            time.text = "Saturday - 9pm";
+                            time.value = "SAT-9";
+                            select.options.add(time);
+
+                            time = document.createElement("option");
+                            time.text = "Sunday - 9pm";
+                            time.value = "SUN-9";
+                            select.options.add(time);
+                            break;
+                        case "RC":
+                            time = document.createElement("option");
+                            time.text = "Monday - 9pm";
+                            time.value = "MON-9";
+                            select.options.add(time);
+
+                            time = document.createElement("option");
+                            time.text = "Tuesday - 9pm";
+                            time.value = "TUES-9";
+                            select.options.add(time);
+
+                            time = document.createElement("option");
+                            time.text = "Wednesday - 1pm";
+                            time.value = "WED-1";
+                            select.options.add(time);
+
+                            time = document.createElement("option");
+                            time.text = "Thursday - 1pm";
+                            time.value = "THUR-1";
+                            select.options.add(time);
+
+                            time = document.createElement("option");
+                            time.text = "Friday - 1pm";
+                            time.value = "FRI-1";
+                            select.options.add(time);
+
+                            time = document.createElement("option");
+                            time.text = "Saturday - 6pm";
+                            time.value = "SAT-6";
+                            select.options.add(time);
+
+                            time = document.createElement("option");
+                            time.text = "Sunday - 6pm";
+                            time.value = "SUN-6";
+                            select.options.add(time);
+                            break;
+
+                    }
+
+                    movie.disabled = true;
+                }
+            </script>
+          <p><label>Session</label><select id="sessionSelect" name="session" style="display: none" onchange="showSeats()">
             </select></p>
-            <fieldset><legend>Seats</legend>
+            <input type="hidden" id="sessionData" name="session" value="" />
+            <script>
+                function showSeats() {
+                    var session = document.getElementById("sessionSelect");
+
+                    document.getElementById("sessionData").value = session.value;
+
+                    session.disabled = true;
+
+                    var seats = document.getElementById("seatsSelect");
+                    seats.style.display = "block";
+                }
+            </script>
+            <fieldset id="seatsSelect" style="display: none"><legend>Seats</legend>
                 <fieldset><legend>Standard</legend>
                     <p><label>Adult - $12.50</label>
-                        <select name="seats_SF">
+                        <select name="seats_SF" onchange="showAddButton()">
                             <option value="0"></option>
                             <option value="1">1</option>
                             <option value="2">2</option>
@@ -119,7 +270,7 @@
                             <option value="9">9</option>
                             <option value="10">10</option>
                         </select></p>
-                    <p><label>Concession $10.50</label><select name="seats_SP">
+                    <p><label>Concession $10.50</label><select name="seats_SP" onchange="showAddButton()">
                         <option value="0"></option>
                         <option value="1">1</option>
                         <option value="2">2</option>
@@ -132,7 +283,7 @@
                         <option value="9">9</option>
                         <option value="10">10</option>
                     </select></p>
-                    <p><label>Child - $8.50</label><select name="seats_SC">
+                    <p><label>Child - $8.50</label><select name="seats_SC" onchange="showAddButton()">
                         <option value="0"></option>
                         <option value="1">1</option>
                         <option value="2">2</option>
@@ -147,7 +298,7 @@
                     </select></p>
                 </fieldset>
                 <fieldset><legend>First Class</legend>
-                    <p><label>Adult - $25</label><select name="seats_FF">
+                    <p><label>Adult - $25</label><select name="seats_FF" onchange="showAddButton()">
                         <option value="0"></option>
                         <option value="1">1</option>
                         <option value="2">2</option>
@@ -160,7 +311,7 @@
                         <option value="9">9</option>
                         <option value="10">10</option>
                     </select></p>
-                    <p><label>Child - $20</label><select name="seats_FC">
+                    <p><label>Child - $20</label><select name="seats_FC" onchange="showAddButton()">
                         <option value="0"></option>
                         <option value="1">1</option>
                         <option value="2">2</option>
@@ -175,7 +326,7 @@
                     </select></p>
                 </fieldset>
                 <fieldset><legend>Bean Bags</legend>
-                    <p><label>Adult - $22</label><select name="seats_BA">
+                    <p><label>Adult - $22</label><select name="seats_BA" onchange="showAddButton()">
                         <option value="0"></option>
                         <option value="1">1</option>
                         <option value="2">2</option>
@@ -188,7 +339,7 @@
                         <option value="9">9</option>
                         <option value="10">10</option>
                     </select></p>
-                    <p><label>Family - $20</label><select name="seats_BF">
+                    <p><label>Family - $20</label><select name="seats_BF" onchange="showAddButton()">
                         <option value="0"></option>
                         <option value="1">1</option>
                         <option value="2">2</option>
@@ -201,7 +352,7 @@
                         <option value="9">9</option>
                         <option value="10">10</option>
                     </select></p>
-                    <p><label>Child - $20</label><select name="seats_BC">
+                    <p><label>Child - $20</label><select name="seats_BC" onchange="showAddButton()">
                         <option value="0"></option>
                         <option value="1">1</option>
                         <option value="2">2</option>
@@ -214,9 +365,14 @@
                         <option value="9">9</option>
                         <option value="10">10</option>
                     </select></p>
+                    <script>
+                        function showAddButton() {
+                            document.getElementById("submitButton").style.display = "block";
+                        }
+                    </script>
                 </fieldset>
             </fieldset>
-          <button class="submit" name="submit">Add to cart</button>
+          <button class="submit" id="submitButton" name="submit" style="display: none">Add to cart</button>
         </form>
       </div>
     </main>
@@ -225,6 +381,6 @@
         <p style="color: white">Kieran Murray s3660898 &amp Will Cohen s3660898</p>
       </div>
     </footer>
-    <?php include_once("/home/eh1/e54061/public_html/wp/debug.php"); ?>
+    <?php include_once("../debug.php"); ?>
   </body>
 </html>
