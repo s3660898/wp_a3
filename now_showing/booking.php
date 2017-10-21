@@ -31,13 +31,55 @@
           $bookingInfo['movie'] = 'Baby Driver (R)';
           break;
       }
-      $_SESSION['bookingList'][] = $bookingInfo;
+
+        if (!isset($_SESSION['bookingList'])) {
+            $_SESSION['bookingList'] = array();
+        }
+        array_push($_SESSION['bookingList'],$bookingInfo);
     }
+
   }
   //Cart clearing
   if(isset($_POST['clearCart'])){
     unset($_SESSION['bookingList']);
     unset($grandTotal);
+  }
+
+
+  function sessionToString($session) {
+      switch ($session) {
+          case "MON-1": return "Monday - 1pm";
+          case "MON-6": return "Monday - 6pm";
+          case "MON-9": return "Monday - 9pm";
+
+          case "TUES-1": return "Tuesday - 1pm";
+          case "TUES-6": return "Tuesday - 6pm";
+          case "TUES-9": return "Tuesday - 9pm";
+
+          case "WED-1": return "Wednesday - 1pm";
+          case "WED-6": return "Wednesday - 6pm";
+          case "WED-9": return "Wednesday - 9pm";
+
+          case "THUR-1": return "Thursday - 1pm";
+          case "THUR-6": return "Thursday - 6pm";
+          case "THUR-9": return "Thursday - 9pm";
+
+          case "FRI-1": return "Friday - 1pm";
+          case "FRI-6": return "Friday - 6pm";
+          case "FRI-9": return "Friday - 9pm";
+
+          case "SAT-12": return "Saturday - 12pm";
+          case "SAT-3": return "Saturday - 3pm";
+          case "SAT-6": return "Saturday - 6pm";
+          case "SAT-9": return "Saturday - 9pm";
+
+          case "SUN-12": return "Sunday - 12pm";
+          case "SUN-3": return "Sunday - 3pm";
+          case "SUN-6": return "Sunday - 6pm";
+          case "SUN-9": return "Sunday - 9pm";
+
+          default: return "ERROR";
+      }
   }
 
 ?>
@@ -64,15 +106,12 @@
     </header>
     <main>
       <div id="centre">
-        <?php //var_dump($_SESSION);//echo '<br><br>';
-        //var_dump($_POST);//echo '<br><br>';
-        //var_dump($bookingInfo);?>
-        <?php if(!empty($_SESSION['bookingList'])){
+        <?php if(isset($_SESSION['bookingList'])){
           echo '<h2>Your Cart:</h2><br>';
-          foreach($_SESSION['bookingList'] as &$bookingInfo){?>
+          foreach($_SESSION['bookingList'] as $bookingInfo){?>
             <fieldset>
               <h2><?php echo $bookingInfo['movie'];?></h2>
-              <p>Showing at <?php echo $bookingInfo['session'];?></p>
+              <p>Showing at <?php echo sessionToString($bookingInfo['session']);?></p>
               <table>
                 <tr>
                   <th>Ticket Type</th>
@@ -190,6 +229,6 @@
         <p style="color: white">Kieran Murray s3660898 &amp Will Cohen s3660898</p>
       </div>
     </footer>
-    <?php include_once("/home/eh1/e54061/public_html/wp/debug.php"); ?>
+    <?php include_once("../debug.php"); ?>
   </body>
 </html>
