@@ -1,4 +1,5 @@
 <?php session_start();?>
+<?php ini_set('display_errors', -1); ?>
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -243,8 +244,66 @@
             </select></p>
             <input type="hidden" id="sessionData" name="session" value="" />
             <script>
+                function chargeWeekendPrice(session) {
+                    switch (session) {
+                        case "MON-1": return false;
+                        case "MON-6": return false;
+                        case "MON-9": return false;
+
+                        case "TUES-1": return false;
+                        case "TUES-6": return false;
+                        case "TUES-9": return false;
+
+                        case "WED-1": return false;
+                        case "WED-6": return true;
+                        case "WED-9": return true;
+
+                        case "THUR-1": return false;
+                        case "THUR-6": return true;
+                        case "THUR-9": return true;
+
+                        case "FRI-1": return false;
+                        case "FRI-6": return true;
+                        case "FRI-9": return true;
+
+                        case "SAT-12": return true;
+                        case "SAT-3": return true;
+                        case "SAT-6": return true;
+                        case "SAT-9": return true;
+
+                        case "SUN-12": return true;
+                        case "SUN-3": return true;
+                        case "SUN-6": return true;
+                        case "SUN-9": return true;
+
+                        default: return "ERROR";
+                    }
+                }
+
+
                 function showSeats() {
                     var session = document.getElementById("sessionSelect");
+
+                    document.getElementById("SFlabel").innerHTML
+                        = "Full - $" + (chargeWeekendPrice(session.value) ? "18.50" : "12.50");
+                    document.getElementById("SPlabel").innerHTML
+                        = "Concession - $" + (chargeWeekendPrice(session.value) ? "15.50" : "10.50");
+                    document.getElementById("SClabel").innerHTML
+                        = "Child - $" + (chargeWeekendPrice(session.value) ? "12.50" : "8.50");
+
+                    document.getElementById("FAlabel").innerHTML
+                        = "Adult - $" + (chargeWeekendPrice(session.value) ? "30" : "25");
+                    document.getElementById("FClabel").innerHTML
+                        = "Child - $" + (chargeWeekendPrice(session.value) ? "25" : "20");
+
+                    document.getElementById("BAlabel").innerHTML
+                        = "Adult - $" + (chargeWeekendPrice(session.value) ? "33" : "22");
+                    document.getElementById("BFlabel").innerHTML
+                        = "Family - $" + (chargeWeekendPrice(session.value) ? "30" : "20");
+                    document.getElementById("BClabel").innerHTML
+                        = "Child - $" + (chargeWeekendPrice(session.value) ? "30" : "20");
+
+
 
                     document.getElementById("sessionData").value = session.value;
 
@@ -256,9 +315,9 @@
             </script>
             <fieldset id="seatsSelect" style="display: none"><legend>Seats</legend>
                 <fieldset><legend>Standard</legend>
-                    <p><label>Adult - $12.50</label>
+                    <p><label id="SFlabel">Full </label>
                         <select name="seats_SF" onchange="showAddButton()">
-                            <option value="0"></option>
+                            <option value="0" selected="selected"></option>
                             <option value="1">1</option>
                             <option value="2">2</option>
                             <option value="3">3</option>
@@ -270,8 +329,8 @@
                             <option value="9">9</option>
                             <option value="10">10</option>
                         </select></p>
-                    <p><label>Concession $10.50</label><select name="seats_SP" onchange="showAddButton()">
-                        <option value="0"></option>
+                    <p><label id="SPlabel">Concession </label><select name="seats_SP" onchange="showAddButton()">
+                        <option value="0" selected="selected"></option>
                         <option value="1">1</option>
                         <option value="2">2</option>
                         <option value="3">3</option>
@@ -283,8 +342,8 @@
                         <option value="9">9</option>
                         <option value="10">10</option>
                     </select></p>
-                    <p><label>Child - $8.50</label><select name="seats_SC" onchange="showAddButton()">
-                        <option value="0"></option>
+                    <p><label id="SClabel">Child </label><select name="seats_SC" onchange="showAddButton()">
+                        <option value="0" selected="selected"></option>
                         <option value="1">1</option>
                         <option value="2">2</option>
                         <option value="3">3</option>
@@ -296,10 +355,14 @@
                         <option value="9">9</option>
                         <option value="10">10</option>
                     </select></p>
+                    <p>
+                        <label>Total: </label>
+                        <label id="standardSubtotal">$0</label>
+                    </p>
                 </fieldset>
                 <fieldset><legend>First Class</legend>
-                    <p><label>Adult - $25</label><select name="seats_FF" onchange="showAddButton()">
-                        <option value="0"></option>
+                    <p><label id="FAlabel">Adult </label><select name="seats_FF" onchange="showAddButton()">
+                        <option value="0" selected="selected"></option>
                         <option value="1">1</option>
                         <option value="2">2</option>
                         <option value="3">3</option>
@@ -311,8 +374,8 @@
                         <option value="9">9</option>
                         <option value="10">10</option>
                     </select></p>
-                    <p><label>Child - $20</label><select name="seats_FC" onchange="showAddButton()">
-                        <option value="0"></option>
+                    <p><label id="FClabel">Child </label><select name="seats_FC" onchange="showAddButton()">
+                        <option value="0" selected="selected"></option>
                         <option value="1">1</option>
                         <option value="2">2</option>
                         <option value="3">3</option>
@@ -324,10 +387,14 @@
                         <option value="9">9</option>
                         <option value="10">10</option>
                     </select></p>
+                    <p>
+                        <label>Total: </label>
+                        <label id="firstSubtotal">$0</label>
+                    </p>
                 </fieldset>
                 <fieldset><legend>Bean Bags</legend>
-                    <p><label>Adult - $22</label><select name="seats_BA" onchange="showAddButton()">
-                        <option value="0"></option>
+                    <p><label id="BAlabel">Adult </label><select name="seats_BA" onchange="showAddButton()">
+                        <option value="0" selected="selected"></option>
                         <option value="1">1</option>
                         <option value="2">2</option>
                         <option value="3">3</option>
@@ -339,8 +406,8 @@
                         <option value="9">9</option>
                         <option value="10">10</option>
                     </select></p>
-                    <p><label>Family - $20</label><select name="seats_BF" onchange="showAddButton()">
-                        <option value="0"></option>
+                    <p><label id="BFlabel">Family </label><select name="seats_BF" onchange="showAddButton()">
+                        <option value="0" selected="selected"></option>
                         <option value="1">1</option>
                         <option value="2">2</option>
                         <option value="3">3</option>
@@ -352,8 +419,8 @@
                         <option value="9">9</option>
                         <option value="10">10</option>
                     </select></p>
-                    <p><label>Child - $20</label><select name="seats_BC" onchange="showAddButton()">
-                        <option value="0"></option>
+                    <p><label id="BClabel">Child </label><select name="seats_BC" onchange="showAddButton()">
+                        <option value="0" selected="selected"></option>
                         <option value="1">1</option>
                         <option value="2">2</option>
                         <option value="3">3</option>
@@ -365,13 +432,44 @@
                         <option value="9">9</option>
                         <option value="10">10</option>
                     </select></p>
-                    <script>
-                        function showAddButton() {
-                            document.getElementById("submitButton").style.display = "block";
-                        }
-                    </script>
+                    <p>
+                        <label>Total: </label>
+                        <label id="beanSubtotal">$0</label>
+                    </p>
                 </fieldset>
+                <br>
+                <p>
+                    <label>Booking Total: </label>
+                    <label id="bookingTotal">0</label>
+                </p>
             </fieldset>
+            <script>
+                function showAddButton() {
+                    var session = document.getElementById("sessionSelect");
+
+                    var standard
+                        = document.getElementsByName("seats_SF")[0].value * (chargeWeekendPrice(session.value) ? 18.50 : 12.50)
+                        + document.getElementsByName("seats_SP")[0].value * (chargeWeekendPrice(session.value) ? 15.50 : 10.50)
+                        + document.getElementsByName("seats_SC")[0].value * (chargeWeekendPrice(session.value) ? 12.50 : 8.50);
+                    document.getElementById("standardSubtotal").innerHTML = "$"+standard.toString();
+
+                    var first
+                        = document.getElementsByName("seats_FF")[0].value * (chargeWeekendPrice(session.value) ? 30 : 25)
+                        + document.getElementsByName("seats_FC")[0].value * (chargeWeekendPrice(session.value) ? 25 : 20);
+                    document.getElementById("firstSubtotal").innerHTML = "$"+first.toString();
+
+                    var bean
+                        = document.getElementsByName("seats_BA")[0].value * (chargeWeekendPrice(session.value) ? 33 : 22)
+                        + document.getElementsByName("seats_BF")[0].value * (chargeWeekendPrice(session.value) ? 30 : 20)
+                        + document.getElementsByName("seats_BC")[0].value * (chargeWeekendPrice(session.value) ? 30 : 20);
+                    document.getElementById("beanSubtotal").innerHTML = "$"+bean.toString();
+
+                    var total = standard + first + bean;
+                    document.getElementById("bookingTotal").innerHTML = "$"+total;
+
+                    document.getElementById("submitButton").style.display = "block";
+                }
+            </script>
           <button class="submit" id="submitButton" name="submit" style="display: none">Add to cart</button>
         </form>
       </div>

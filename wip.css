@@ -2,21 +2,31 @@
     padding: 0;
     margin: 0;
 }
+
 body {
     text-align: center;
 }
+
 header {
     font-family: "Montserrat", sans-serif;
     padding-bottom: 100px;
 }
+
 #centre {
     margin: 0 auto;
     width: 50%;
 }
 
+#centre-print {
+    margin: 0 auto;
+    width: 70%;
+}
+
+
 #centre-text {
     text-align: justify;
 }
+
 footer {
     list-style-type: none;
     margin: 0px;
@@ -28,19 +38,17 @@ footer {
     width: 100%;
 }
 
-
 html {
     font-family: "Montserrat", sans-serif;
     background-color: #FFFFFA;
 }
-
 
 ul {
     list-style-type: none;
     margin: 0px;
     padding: 0px;
     overflow: hidden;
-    background-color: #0D5C63;
+    background-color: #0d5c63;
     position: fixed;
     top: 0;
     width: 100%;
@@ -66,14 +74,13 @@ li a:hover:not(.active) {
     background-color: #44A1A0;
 }
 
-
 .container {
     display: flex;
     justify-content: space-between;
 }
 
 .logo {
-    width:inherit;
+    width: inherit;
     margin: 0 auto;
     display: block;
 }
@@ -82,7 +89,6 @@ img {
     width: 100%;
     height: auto;
 }
-
 
 .column {
     flex: 1;
@@ -114,15 +120,98 @@ button:hover {
     background-color: #247B7B;
 }
 
+button#clearCart.submit {
+    width: 100%;
+    background-color: #632e2e;
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    cursor: pointer;
+}
+
 fieldset {
     padding: 14px 20px;
 }
-
-
 
 form {
     border-radius: 5px;
     background-color: #f2f2f2;
     padding: 20px;
     font-family: 'Lato', sans-serif;
+}
+
+table.userinfo {
+    width: 100%;
+}
+
+.print-only {
+    display: none;
+}
+
+/* Original printing-style template courtesy of Zoltan Toth, 2012, Stack Exchange */
+/* Modified by Kieran Murray and Will Cohen for use in Web Programming Assignment 3 */
+@media print {
+    * {
+        font-family: "Times New Roman";
+        background: transparent !important;
+        color: black !important;
+        text-shadow: none !important;
+        filter: none !important;
+        -ms-filter: none !important;
+    }
+
+    /* Black prints faster: sanbeiji.com/archives/953 */
+    p a, p a:visited {
+        color: #444 !important;
+        text-decoration: underline;
+    }
+
+    p a[href]:after {
+        content: " (" attr(href) ")";
+    }
+
+    abbr[title]:after {
+        content: " (" attr(title) ")";
+    }
+
+    .ir a:after, a[href^="javascript:"]:after, a[href^="#"]:after {
+        content: "";
+    }
+
+    /* Don't show links for images, or javascript/internal links */
+    pre, blockquote {
+        border: 1px solid #999;
+        page-break-inside: avoid;
+    }
+
+    thead {
+        display: table-header-group;
+    }
+
+    /* css-discuss.incutio.com/wiki/Printing_Tables */
+    tr, img {
+        page-break-inside: avoid;
+    }
+
+
+    @page {
+        margin: 0.5cm;
+    }
+
+    p, h2, h3 {
+        orphans: 3;
+        widows: 3;
+    }
+
+    h2, h3 {
+        page-break-after: avoid;
+    }
+
+    .hide-on-print {
+        display: none !important;
+    }
+
+    .print-only {
+        display: block !important;
+    }
 }

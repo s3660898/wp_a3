@@ -1,3 +1,4 @@
+<?php session_start();?>
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -7,12 +8,22 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat"/>
     <link rel="stylesheet" href="wip.css"/>
   </head>
+  <?php
+  //Cart clearing
+  if(isset($_POST['clearCart'])){
+      unset($_SESSION['bookingList']);
+      unset($_SESSION['name']);
+      unset($_SESSION['email']);
+      unset($_SESSION['mobile']);
+  }
+
+  ?>
   <body>
     <nav>
       <ul>
         <li><a class="active" href="">Home</a></li>
         <li><a href="now_showing">Now Showing</a></li>
-        <li><a href="now_showing/booking.php">View Cart</a></li>
+        <li><a href="now_showing/booking.php">View Cart <?php ?></a></li>
         <li><a href="about">About</a></li>
       </ul>
     </nav>
@@ -63,6 +74,6 @@
         <p style="color: white">Kieran Murray s3660898 &amp Will Cohen s3660898</p>
       </div>
     </footer>
-    <?php include_once("/home/eh1/e54061/public_html/wp/debug.php"); ?>
+    <?php include_once("debug.php"); ?>
   </body>
 </html>

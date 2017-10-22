@@ -1,3 +1,4 @@
+<?php session_start();?>
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -27,6 +28,6 @@
         <p style="color: white">Kieran Murray s3660898 &amp Will Cohen s3660898</p>
       </div>
     </footer>
-    <?php include_once("/home/eh1/e54061/public_html/wp/debug.php"); ?>
+    <?php include_once("../debug.php"); ?>
   </body>
 </html>

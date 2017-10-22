@@ -82,6 +82,42 @@
       }
   }
 
+  function chargeWeekndPrice($session) {
+      switch ($session) {
+          case "MON-1": return false;
+          case "MON-6": return false;
+          case "MON-9": return false;
+
+          case "TUES-1": return false;
+          case "TUES-6": return false;
+          case "TUES-9": return false;
+
+          case "WED-1": return false;
+          case "WED-6": return true;
+          case "WED-9": return true;
+
+          case "THUR-1": return false;
+          case "THUR-6": return true;
+          case "THUR-9": return true;
+
+          case "FRI-1": return false;
+          case "FRI-6": return true;
+          case "FRI-9": return true;
+
+          case "SAT-12": return true;
+          case "SAT-3": return true;
+          case "SAT-6": return true;
+          case "SAT-9": return true;
+
+          case "SUN-12": return true;
+          case "SUN-3": return true;
+          case "SUN-6": return true;
+          case "SUN-9": return true;
+
+          default: return "ERROR";
+      }
+  }
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -112,7 +148,11 @@
             <fieldset>
               <h2><?php echo $bookingInfo['movie'];?></h2>
               <p>Showing at <?php echo sessionToString($bookingInfo['session']);?></p>
-              <table>
+              <table style="width: 100%;">
+                  <col width="34%">
+                  <col width="22%">
+                  <col width="22%">
+                  <col width="22%">
                 <tr>
                   <th>Ticket Type</th>
                   <th>Cost</th>
@@ -122,103 +162,145 @@
                 <?php if($bookingInfo['seats_SF'] != 0){?>
                   <tr>
                     <td>Standard (Full)</td>
-                    <td><?php echo '$18.50';?></td>
+                    <td><?php echo '$'.(chargeWeekndPrice($bookingInfo['session']) ? '18.50' : '12.50');?></td>
                     <td><?php echo $bookingInfo['seats_SF'];?></td>
-                    <td><?php echo '$'.(int)$bookingInfo['seats_SF']*18.50;?></td>
+                    <td><?php echo '$'.(int)$bookingInfo['seats_SF']*(chargeWeekndPrice($bookingInfo['session']) ? 18.50 : 12.50);?></td>
                   </tr>
                 <?php }?>
                 <?php if($bookingInfo['seats_SP'] != 0){?>
                   <tr>
                     <td>Standard (Concession)</td>
-                    <td><?php echo '$15.50';?></td>
+                    <td><?php echo '$'.(chargeWeekndPrice($bookingInfo['session']) ? '15.50' : '10.50');?></td>
                     <td><?php echo $bookingInfo['seats_SP'];?></td>
-                    <td><?php echo '$'.(int)$bookingInfo['seats_SP']*15.50;?></td>
+                    <td><?php echo '$'.(int)$bookingInfo['seats_SP']*(chargeWeekndPrice($bookingInfo['session']) ? 15.50 : 10.50);?></td>
                   </tr>
                 <?php }?>
                 <?php if($bookingInfo['seats_SC'] != 0){?>
                   <tr>
                     <td>Standard (Child)</td>
-                    <td><?php echo '$12.50';?></td>
+                    <td><?php echo '$'.(chargeWeekndPrice($bookingInfo['session']) ? '12.50' : '8.50');?></td>
                     <td><?php echo $bookingInfo['seats_SC'];?></td>
-                    <td><?php echo '$'.(int)$bookingInfo['seats_SC']*12.50;?></td>
+                    <td><?php echo '$'.(int)$bookingInfo['seats_SC']*(chargeWeekndPrice($bookingInfo['session']) ? 12.50 : 8.50);?></td>
                   </tr>
                 <?php }?>
                 <?php if($bookingInfo['seats_FF'] != 0){?>
                   <tr>
                     <td>First Class (Full)</td>
-                    <td><?php echo '$30.00';?></td>
+                    <td><?php echo '$'.(chargeWeekndPrice($bookingInfo['session']) ? '30' : '25');?></td>
                     <td><?php echo $bookingInfo['seats_FF'];?></td>
-                    <td><?php echo '$'.(int)$bookingInfo['seats_FF']*30;?></td>
+                    <td><?php echo '$'.(int)$bookingInfo['seats_FF']*(chargeWeekndPrice($bookingInfo['session']) ? 30 : 20);?></td>
                   </tr>
                 <?php }?>
                 <?php if($bookingInfo['seats_FC'] != 0){?>
                   <tr>
                     <td>First Class (Child)</td>
-                    <td><?php echo '$25.00';?></td>
+                    <td><?php echo '$'.(chargeWeekndPrice($bookingInfo['session']) ? '25' : '20');?></td>
                     <td><?php echo $bookingInfo['seats_FC'];?></td>
-                    <td><?php echo '$'.(int)$bookingInfo['seats_FC']*25;?></td>
+                    <td><?php echo '$'.(int)$bookingInfo['seats_FC']*(chargeWeekndPrice($bookingInfo['session']) ? 25 : 20);?></td>
                   </tr>
                 <?php }?>
                 <?php if($bookingInfo['seats_BA'] != 0){?>
                   <tr>
                     <td>Beanbag (Adult)</td>
-                    <td><?php echo '$33.00';?></td>
+                    <td><?php echo '$'.(chargeWeekndPrice($bookingInfo['session']) ? '33' : '22');?></td>
                     <td><?php echo $bookingInfo['seats_BA'];?></td>
-                    <td><?php echo '$'.(int)$bookingInfo['seats_BA']*33;?></td>
+                    <td><?php echo '$'.(int)$bookingInfo['seats_BA']*(chargeWeekndPrice($bookingInfo['session']) ? 33 : 22);?></td>
                   </tr>
                 <?php }?>
                 <?php if($bookingInfo['seats_BF'] != 0){?>
                   <tr>
                     <td>Beanbag (Family)</td>
-                    <td><?php echo '$30.00';?></td>
+                    <td><?php echo '$'.(chargeWeekndPrice($bookingInfo['session']) ? '30' : '20');?></td>
                     <td><?php echo $bookingInfo['seats_BF'];?></td>
-                    <td><?php echo '$'.(int)$bookingInfo['seats_BF']*30;?></td>
+                    <td><?php echo '$'.(int)$bookingInfo['seats_BF']*(chargeWeekndPrice($bookingInfo['session']) ? 30 : 20);?></td>
                   </tr>
                 <?php }?>
                 <?php if($bookingInfo['seats_BC'] != 0){?>
                   <tr>
                     <td>Beanbag (Child)</td>
-                    <td><?php echo '$30.00';?></td>
+                    <td><?php echo '$'.(chargeWeekndPrice($bookingInfo['session']) ? '30' : '20');?></td>
                     <td><?php echo $bookingInfo['seats_BC'];?></td>
-                    <td><?php echo '$'.(int)$bookingInfo['seats_BC']*30;?></td>
+                    <td><?php echo '$'.(int)$bookingInfo['seats_BC']*(chargeWeekndPrice($bookingInfo['session']) ? 30 : 20);?></td>
                   </tr>
                 <?php }?>
                 <tr>
                   <td></td>
                   <td></td>
-                  <td>Total:</td>
-                  <td>
-                    <?php $grandTotal +=
-                    (int)$bookingInfo['seats_SF']*18.50+
-                    (int)$bookingInfo['seats_SP']*15.50+
-                    (int)$bookingInfo['seats_SC']*12.50+
-                    (int)$bookingInfo['seats_FF']*30+
-                    (int)$bookingInfo['seats_FC']*25+
-                    (int)$bookingInfo['seats_BA']*33+
-                    (int)$bookingInfo['seats_BF']*30+
-                    (int)$bookingInfo['seats_BC']*30;
-                    echo '$';
-                    echo
-                    (int)$bookingInfo['seats_SF']*18.50+
-                    (int)$bookingInfo['seats_SP']*15.50+
-                    (int)$bookingInfo['seats_SC']*12.50+
-                    (int)$bookingInfo['seats_FF']*30+
-                    (int)$bookingInfo['seats_FC']*25+
-                    (int)$bookingInfo['seats_BA']*33+
-                    (int)$bookingInfo['seats_BF']*30+
-                    (int)$bookingInfo['seats_BC']*30;?>
-                  </td>
+                  <td></td>
+                  <th>
+                    <?php
+                    if (chargeWeekndPrice($bookingInfo['session'])) {
+                        $grandTotal +=
+                        (int)$bookingInfo['seats_SF']*18.50+
+                        (int)$bookingInfo['seats_SP']*15.50+
+                        (int)$bookingInfo['seats_SC']*12.50+
+                        (int)$bookingInfo['seats_FF']*30+
+                        (int)$bookingInfo['seats_FC']*25+
+                        (int)$bookingInfo['seats_BA']*33+
+                        (int)$bookingInfo['seats_BF']*30+
+                        (int)$bookingInfo['seats_BC']*30;
+                    } else {
+                        $grandTotal +=
+                            (int)$bookingInfo['seats_SF']*12.50+
+                            (int)$bookingInfo['seats_SP']*10.50+
+                            (int)$bookingInfo['seats_SC']*8.50+
+                            (int)$bookingInfo['seats_FF']*25+
+                            (int)$bookingInfo['seats_FC']*20+
+                            (int)$bookingInfo['seats_BA']*22+
+                            (int)$bookingInfo['seats_BF']*20+
+                            (int)$bookingInfo['seats_BC']*20;
+                    }
+                    echo "Total: $";
+                    if (chargeWeekndPrice($bookingInfo['session'])) {
+                        echo
+                            (int)$bookingInfo['seats_SF']*18.50+
+                            (int)$bookingInfo['seats_SP']*15.50+
+                            (int)$bookingInfo['seats_SC']*12.50+
+                            (int)$bookingInfo['seats_FF']*30+
+                            (int)$bookingInfo['seats_FC']*25+
+                            (int)$bookingInfo['seats_BA']*33+
+                            (int)$bookingInfo['seats_BF']*30+
+                            (int)$bookingInfo['seats_BC']*30;
+                    } else {
+                        echo
+                            (int)$bookingInfo['seats_SF']*12.50+
+                            (int)$bookingInfo['seats_SP']*10.50+
+                            (int)$bookingInfo['seats_SC']*8.50+
+                            (int)$bookingInfo['seats_FF']*25+
+                            (int)$bookingInfo['seats_FC']*20+
+                            (int)$bookingInfo['seats_BA']*22+
+                            (int)$bookingInfo['seats_BF']*20+
+                            (int)$bookingInfo['seats_BC']*20;
+                    }
+
+
+                    ?>
+                  </th>
                 </tr>
               </table>
             </fieldset>
           <?php }?>
           <?php echo '<h3>Grand Total: $'.$grandTotal.'</h3>';?>
-          <form method="post" action="booking.php">
-            <button class="submit" name="clearCart">Clear Cart</button>
-          </form>
-          <form action ="index.php">
-            <button>Continue Shopping</button>
-          </form>
+
+
+            <form method="post" action="checkout.php">
+                <button id="checkout" class="submit" name="checkout">Checkout</button>
+
+
+            </form>
+         <div class="container">
+             <div class="column">
+                 <form action ="index.php">
+                     <button>Continue Shopping</button>
+                 </form>
+             </div>
+             <div class="column">
+                 <form onsubmit="return confirm('Are you sure you want to clear the entire cart?');" method="post" action="booking.php">
+                     <button id="clearCart" class="submit" name="clearCart">Clear Cart</button>
+                 </form>
+             </div>
+         </div>
+
         <?php }else{?>
           <h2>Your cart is empty!<h2>
         <?php }?>
